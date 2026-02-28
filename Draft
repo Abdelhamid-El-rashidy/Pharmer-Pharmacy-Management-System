@@ -1,0 +1,92 @@
+Pharmacy management system (Pharmer)
+
+# Functional Requirement "App must do:"
+- store all product
+- buy products
+- recieve products either from customer or stores
+- calculate the amount of money gained by taking (price of #p, discount of store) of each product
+- search in all product with options (data,amount,catogery)
+- store a list of vanished products to alert
+- start & end wardia
+- store report for each wardia
+- user can add categories for products
+- Track Expiring data
+
+
+# Class responsibilites
+
+Enum categories -> Anitibiotic, cosmetics, ... (user can add new categories)
+Enum Type -> tablets, capsules, sachets, vials, amp, granules, syrup, suspension.... (user can add new types)
+
+- Product (Abstract class):
+    Att:
+    - name, catogory(static), types, amount(static),price(static), discount, units, expire date
+    Methods:
+    - Getters for each att
+    - Setters for each att
+    - Unitprice()
+
+
+- MainWindow
+    - Find
+    - Buy (loop for each product end when user print 0)
+    - sell (// same as buy)
+
+- Data Structure
+    Hashing and Trie
+
+
+
+                          ┌──────────────────────┐
+                          │       UI Layer       │
+                          │   MainWindow / CLI   │
+                          └──────────┬───────────┘
+                                     │
+                                     ▼
+                    ┌────────────────────────────────┐
+                    │        Manager Layer           │
+                    │  (Singleton Controllers)       │
+                    │--------------------------------│
+                    │ InventoryManager               │
+                    │ ShiftManager                   │
+                    │ CategoryManager                │
+                    │ TypeManager                    │
+                    └──────────┬─────────────────────┘
+                               │
+                               ▼
+                 ┌──────────────────────────────┐
+                 │      Repository Layer        │
+                 │ (Data Access Abstraction)    │
+                 │------------------------------│
+                 │ ProductRepository            │
+                 │ TransactionRepository        │
+                 └──────────┬───────────────────┘
+                            │
+                            ▼
+          ┌────────────────────────────────────────┐
+          │        Data Structure Engine           │
+          │----------------------------------------│
+          │ HashMap → ID lookup                    │
+          │ Trie → Name search                     │
+          │ TreeSet → Quantity sorting             │
+          │ PriorityQueue → Expiry alerts          │
+          │ Map<Category,Set> → Category index     │
+          └──────────┬─────────────────────────────┘
+                     │
+                     ▼
+          ┌────────────────────────────────┐
+          │           Models               │
+          │--------------------------------│
+          │ Product                        │
+          │ Category                       │
+          │ Type                           │
+          │ Transaction                    │
+          │ Shift                          │
+          └────────────────────────────────┘
+
+
+
+// Layered Architecture
+// Command Wrapper Class:
+-- Search mode (on, off)
+--
